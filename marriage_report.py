@@ -61,7 +61,6 @@ def save_married_couples_csv(married_couples, csv_path):
                               'name2': person2,
                               'Anniversary': start_date
                               })
-    
     df = pd.DataFrame(DataFramelist)
 
     df.to_csv(csv_path,'Married Couples.csv', index=False,)
