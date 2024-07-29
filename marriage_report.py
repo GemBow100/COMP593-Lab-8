@@ -63,7 +63,7 @@ def save_married_couples_csv(married_couples, csv_path):
                               })
     df = pd.DataFrame(DataFramelist)
 
-    df.to_csv(csv_path,'Married Couples.csv', index=False,)
+    df.to_csv(csv_path, index=False,)
 
     print(df)
     return
