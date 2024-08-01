@@ -40,13 +40,11 @@ def get_married_couples():
     all_relationships = cur.fetchall()
     con.close()
     #Print sentences describing each relationship
-    i = 0
     for person1, person2, start_date, type in all_relationships:
-        i += 1
         print(f'{person1} has been a {type} of {person2} since {start_date}.')
-    print(i) 
 
-    return
+
+    return all_relationships
 
 def save_married_couples_csv(married_couples, csv_path):
     """Saves list of married couples to a CSV file, including both people's 
@@ -59,17 +57,17 @@ def save_married_couples_csv(married_couples, csv_path):
     # TODO: Function body
     # Hint: We did this in Lab 7.
     DataFramelist = [] 
-    for person1, person2, start_date in married_couples:
+    for person1, person2, start_date, type in married_couples:
         DataFramelist.append({'name1': person1,
                               'name2': person2,
                               'Anniversary': start_date
                               })
     df = pd.DataFrame(DataFramelist)
 
-    df.to_csv(csv_path, index=False,)
+    df.to_csv(csv_path, index=False)
 
     print(df)
-    return
+    return csv_path
 
 if __name__ == '__main__':
    main()

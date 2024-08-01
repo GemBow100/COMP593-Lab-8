@@ -1,3 +1,4 @@
 __pycache__
 create_db.py 
 *.db
+*.csv
