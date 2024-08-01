@@ -40,8 +40,11 @@ def get_married_couples():
     all_relationships = cur.fetchall()
     con.close()
     #Print sentences describing each relationship
+    i = 0
     for person1, person2, start_date, type in all_relationships:
+        i += 1
         print(f'{person1} has been a {type} of {person2} since {start_date}.')
+    print(i) 
 
     return
 

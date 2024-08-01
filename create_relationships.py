@@ -10,7 +10,7 @@ import os
 import sqlite3
 from random import randint, choice
 from faker import Faker
-from datetime import datetime
+
 
 # Determine the path of the database
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -66,27 +66,25 @@ def populate_relationships_table():
             VALUES (?, ?, ?, ?);
     """
     fake = Faker("en_CA")
-    # Randomly select first person in relationship
-    person1_id = fake.random_int(min=1, max=100)
-    # Randomly select second person in relationship
-    # Loop ensures person will not be in a relationship with themself
     for _ in range (100):
-        person2_id = fake.random_int(min= 1, max= 100)
-        person1_id = fake.name()
-        person2_id = fake.name()
-
-    while person2_id == person1_id:
-            person2_id = randint(1, 200)
-    # Randomly select a relationship type
-    rel_type = choice(('friend', 'spouse', 'partner', 'relative'))
-    # Randomly select a relationship start date between now and 50 years ago
-    start_date = fake.date_between(start_date='-30y', end_date='today').strftime('%Y-%M-%D %H:%M:%S')
-    # Create tuple of data for the new relationship
-    new_relationship = (person1_id, person2_id, rel_type, start_date)
+        # Randomly select first person in relationship
+        person1_id = fake.random_int(min=1, max=200)
+        # Randomly select second person in relationship
+        # Loop ensures person will not be in a relationship with themself
+        person2_id = fake.random_int(min= 1, max=200)
     
-    # Add the new relationship to the DB
-    cur.execute(add_relationship_query, new_relationship)
-    con.commit()
+        while person2_id == person1_id:
+                person2_id = randint(1, 200)
+        # Randomly select a relationship type
+        rel_type = choice(('friend', 'spouse', 'partner', 'relative'))
+        # Randomly select a relationship start date between now and 50 years ago
+        start_date = fake.date_between(start_date='-30y', end_date='today').strftime('%Y-%M-%D %H:%M:%S')
+        # Create tuple of data for the new relationship
+        new_relationship = (person1_id, person2_id, rel_type, start_date)
+    
+        # Add the new relationship to the DB
+        cur.execute(add_relationship_query, new_relationship)
+        con.commit()
     con.close()
 
     return 
